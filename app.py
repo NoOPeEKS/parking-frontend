@@ -48,7 +48,7 @@ if selected_parking:
     # Contenedor para datos en tiempo real
     real_time_container = st.empty()
     stats_container = st.empty()
-    
+
     # Función para actualizar datos en tiempo real
     def update_real_time_data():
         parking_info = get_parking_info(selected_parking)
@@ -68,10 +68,10 @@ if selected_parking:
             )
             
             # Mostrar mapa
-            df_map = pd.DataFrame([{"name": parking_info['name'], "latitude": 41.617592, "longitude": 0.620015}])
+            df_map = pd.DataFrame([{"name": parking_info['name'], "latitude": float(parking_info['coordinates'].split(",")[0]), "longitude": float(parking_info['coordinates'].split(",")[1])}])
             st.map(data=df_map, latitude='latitude', longitude='longitude')
-            st.text(f"Ubicación: {parking_info['coordinates']}")
-        
+            st.text(f"Coordenadas: {parking_info['coordinates']}")
+            
         return parking_info
 
     # Función para actualizar estadísticas
@@ -150,3 +150,4 @@ if selected_parking:
         
 else:
     st.info("Por favor, selecciona un parking en el menú lateral para ver sus detalles.")
+
